@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ErrorComponent } from './error/error.component';
 import { ListTodosComponent } from './list-todos/list-todos.component';
+import { LogoutComponent } from './logout/logout.component';
 
 // routes are defined adding objects to this array
 const routes: Routes = [
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'welcome/:name', component: WelcomeComponent}, // with this, i'm saying that i expect a parameter "name" in the query string/url
   {path: 'todos', component: ListTodosComponent},
-  
+  {path: 'logout', component: LogoutComponent},
+
   {path: '**', component: ErrorComponent}               // everything else goes here
 
 ];
