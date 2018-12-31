@@ -6,13 +6,13 @@
 
     <ul class="navbar-nav">
       <!-- routerLink vs href: il primo fa sì che non venga ricaricata l'intera pagina -->
-      <li><a *ngIf="isUserLoggedIn" routerLink="/welcome/pippo" class="nav-link">Home</a></li>
-      <li><a *ngIf="isUserLoggedIn" routerLink="/todos" class="nav-link">Todos</a></li>
+      <li><a *ngIf="hardCodedAuth.isUserLoggedIn()" routerLink="/welcome/pippo" class="nav-link">Home</a></li>
+      <li><a *ngIf="hardCodedAuth.isUserLoggedIn()" routerLink="/todos" class="nav-link">Todos</a></li>
     </ul>
 
     <ul class="navbar-nav navbar-collapse justify-content-end">
-        <li><a *ngIf="!isUserLoggedIn" routerLink="/login" class="nav-link">Login</a></li>
-        <li><a *ngIf="isUserLoggedIn" routerLink="/logout" class="nav-link">Logout</a></li>
+        <li><a *ngIf="!hardCodedAuth.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
+        <li><a *ngIf="hardCodedAuth.isUserLoggedIn()" routerLink="/logout" class="nav-link">Logout</a></li>
       </ul>
   </nav>
 </header>
