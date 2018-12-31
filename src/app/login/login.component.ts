@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HardCodedAuthenticationService } from '../service/hard-coded-authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
 
 
   // in Typescript, constructor arguments are visible in the whole class, much like member variables
-  constructor(private router: Router) {
+  constructor(private router: Router,
+    private hardCodedAuthService: HardCodedAuthenticationService) {
     this.username = '';
     this.password = '';
     this.errorMessage = "Invalid credentials";
@@ -32,7 +34,8 @@ export class LoginComponent implements OnInit {
     console.log(this.username);
     console.log(this.password);
 
-    if (this.username==='pippo' && this.password==='pass') {
+    // if (this.username==='pippo' && this.password==='pass') {
+    if (this.hardCodedAuthService.authenticate(this.username, this.password)) {
       // routing to welcome page, passing username as parameter
       this.router.navigate(['welcome', this.username]);
       this.invalidLogin = false;
