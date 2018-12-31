@@ -1,0 +1,21 @@
+<h1>Login</h1>
+
+<div class="container">
+  <!-- another angular directive -->
+  <div *ngIf='invalidLogin' class="alert alert-warning">{{errorMessage}}</div>
+
+  <div>
+    <!-- User name: <input name="username" type="text" value="{{username}}"/> -->
+    <!-- "banana in a box" ngModel is a special two way data binding that links the value in the component with the one in this view -->
+    <!-- to make it work, you need to import FormsModule from angular/forms in app.module.ts -->
+    <!-- ngModel is an "Angular directive", it extends and adds additional meaning to an existing html tag -->
+    User name: <input name="username" type="text" [(ngModel)]="username"/>
+
+  </div>
+  <div>
+    Password: <input name="password" type="password" [(ngModel)]="password"/>
+  </div>
+  <!-- angular event binding: (<event-name>)=methodToCall() -->
+  <button (click)=handleLogin() class="btn btn-info">Login</button>
+
+  </div>
