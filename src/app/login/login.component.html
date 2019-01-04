@@ -4,18 +4,22 @@
   <!-- another angular directive -->
   <div *ngIf='invalidLogin' class="alert alert-warning">{{errorMessage}}</div>
 
-  <div>
-    <!-- User name: <input name="username" type="text" value="{{username}}"/> -->
-    <!-- "banana in a box" ngModel is a special two way data binding that links the value in the component with the one in this view -->
-    <!-- to make it work, you need to import FormsModule from angular/forms in app.module.ts -->
-    <!-- ngModel is an "Angular directive", it extends and adds additional meaning to an existing html tag -->
-    User name: <input name="username" type="text" [(ngModel)]="username"/>
-
-  </div>
-  <div>
-    Password: <input name="password" type="password" [(ngModel)]="password"/>
-  </div>
-  <!-- angular event binding: (<event-name>)=methodToCall() -->
-  <button (click)=handleLogin() class="btn btn-info">Login</button>
+  <form #myForm="ngForm">
+    <div class="form-group">
+      <label for="user-field">User name</label>
+      <!-- User name: <input name="username" type="text" value="{{username}}"/> -->
+      <!-- "banana in a box" ngModel is a special two way data binding that links the value in the component with the one in this view -->
+      <!-- to make it work, you need to import FormsModule from angular/forms in app.module.ts -->
+      <!-- ngModel is an "Angular directive", it extends and adds additional meaning to an existing html tag -->
+      <input name="username" [(ngModel)]="username" type="text" id="user-field" required minlength="4" class="form-control" placeholder="Enter username..."/>
+    </div>
+    <div class="form-group">
+      <label for="pass-field">Password</label>
+      <input name="password" [(ngModel)]="password" type="password" id="pass-field" required minlength="4" class="form-control" placeholder="Your password..."/>
+    </div>
+    <!-- angular event binding: (<event-name>)=methodToCall() -->
+    <button (click)=handleLogin() [disabled]="!myForm.form.valid" class="btn btn-info" type="submit" >Login</button>
+  </form>
+  
 
   </div>
