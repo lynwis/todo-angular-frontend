@@ -1,0 +1,23 @@
+<h1>Todo {{todo.id}}</h1>
+<div class="container">
+  <fieldset class="form-group">
+    <label>Description</label>
+    <input type="text" [(ngModel)]="todo.description" name="description" required="required"
+      class="form-control">
+  </fieldset>
+
+  <!-- here we are splitting the ngModel in model and event handling  -->
+  <!-- the model part takes care of mapping the value to the html  -->
+  <!-- the event handler listens on the change event on the model, and updates the value from what it gets from the event -->
+  <fieldset class="form-group">
+    <label>Target date</label>
+    <input type="date"
+      [ngModel]="todo.targetDate | date:'yyyy-MM-dd'"
+      (ngModelChange)="todo.targetDate = $event"
+      name="targetDate" required="required"
+      class="form-control">
+  </fieldset>
+
+  <button class="btn btn-small btn-success" (click)="saveTodo()">Save</button>
+</div>
+
