@@ -1,0 +1,4 @@
+/* this class is automatically added by Angular on invalid fields*/
+.ng-invalid:not(form) {
+    border-left: 5px solid red;
+}

@@ -23,4 +23,15 @@ export class TodoDataService {
     return this.http.delete(`http://localhost:8080/users/${userName}/todos/${id}`);
   }
 
+  updateTodo(userName: string, id: number, todo: Todo) {
+    console.log(todo);
+    return this.http.put(`http://localhost:8080/users/${userName}/todos/${id}`,
+      todo);
+  }
+
+  createTodo(userName: string, todo: Todo) {
+    console.log(todo);
+    return this.http.post(`http://localhost:8080/users/${userName}/todos`,
+      todo);
+  }
 }
