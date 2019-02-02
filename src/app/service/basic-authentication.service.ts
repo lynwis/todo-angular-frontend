@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 // the Injectable decorator is what makes this class a Service
 // the class gathers all the authentication logic, and it can provide it to any component
@@ -12,13 +13,14 @@ export class BasicAuthenticationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  authenticate(username: string, password: string) { 
+  authenticate(username: string, password: string) : Observable<AuthenticationBean> { 
     let basicAuthString = this.createBasicAuthenticationHttpHeader(username, password);
     let header = new HttpHeaders( {
       Authorization: basicAuthString
     } );
 
-    return this.httpClient.get<AuthenticationBean>('http://localhost:8080/basicauth',
+    return this.httpClient.get<AuthenticationBean>(
+      'http://localhost:8080/basicauth',
       { headers : header }).pipe(   // "pipe" is executed only in case of sucessful response
         map(
           data => {
@@ -39,11 +41,6 @@ export class BasicAuthenticationService {
 
   }
 
-  createBasicAuthenticationHttpHeader(username: string, password: string): string {
-    let basicAuthHeaderString = 'Basic ' + window.btoa(username + ':' + password);
-    return basicAuthHeaderString;
-  }
-
   getAuthenticatedUser() : string {
     return sessionStorage.getItem('authenticatedUser');
   }
@@ -55,7 +52,7 @@ export class BasicAuthenticationService {
       return null;
   }
 
-  isUserLoggedIn() {
+  isUserLoggedIn() : boolean {
     return !(this.getAuthenticatedUser() === null);
   }
 
@@ -63,6 +60,11 @@ export class BasicAuthenticationService {
     sessionStorage.removeItem('authenticatedUser');
     sessionStorage.removeItem('authToken');
 
+  }
+
+  private createBasicAuthenticationHttpHeader(username: string, password: string): string {
+    let basicAuthHeaderString = 'Basic ' + window.btoa(username + ':' + password);
+    return basicAuthHeaderString;
   }
 
 }

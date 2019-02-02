@@ -10,7 +10,7 @@ export class HardCodedAuthenticationService {
 
   constructor() { }
 
-  authenticate(username: string, password: string) {
+  authenticate(username: string, password: string) : boolean {
     // console.log('before login, isLogged: ' + this.isUserLoggedIn());
     if (username==='pippo' && password==='pass') {
       sessionStorage.setItem('authenticatedUser', username);
@@ -21,7 +21,7 @@ export class HardCodedAuthenticationService {
     }
   }
 
-  isUserLoggedIn() {
+  isUserLoggedIn() : boolean {
     let user = sessionStorage.getItem('authenticatedUser');
     return !(user === null);
   }

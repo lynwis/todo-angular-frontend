@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   /**
    * Fake hardcoded login
    */
-  handleLogin() {
+  handleHardCodedLogin() {
     console.log(this.username);
     console.log(this.password);
 
