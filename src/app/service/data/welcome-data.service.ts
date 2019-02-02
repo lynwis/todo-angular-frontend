@@ -14,7 +14,7 @@ export class WelcomeDataService {
     return this.httpClient.get<HelloWorldBean>('http://localhost:8080/hello-world-bean');
   }
 
-  executePersonalizedHelloWorldBeanService(userName: String) {
+  executePersonalizedHelloWorldBeanService(userName: string) {
     // 
     // this logic has been refactored and moved to the http interceptor for basic auth
     // these headers are authomatically added to every outgoing request

@@ -18,8 +18,9 @@
       <input name="password" [(ngModel)]="password" type="password" id="pass-field" required minlength="4" class="form-control" placeholder="Your password..."/>
     </div>
     <!-- angular event binding: (<event-name>)=methodToCall() -->
-    <button (click)=handleLogin() [disabled]="!myForm.form.valid" class="btn btn-info" type="submit" >Login</button>
+    <!-- <button (click)=handleLogin() [disabled]="!myForm.form.valid" class="btn btn-info" type="submit" >Login</button> -->
+    <button (click)=handleBasicAuthLogin() [disabled]="!myForm.form.valid" class="btn btn-info" type="submit" >Login</button>
+
   </form>
   
-
-  </div>
+</div>
