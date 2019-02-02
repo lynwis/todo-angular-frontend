@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { API_BASE_URL, API_BASIC_AUTH_URI } from '../app.constants';
+
+export const TOKEN = 'authToken'
+export const AUTHENTICATED_USR = 'authenticatedUser'
 
 // the Injectable decorator is what makes this class a Service
 // the class gathers all the authentication logic, and it can provide it to any component
@@ -20,13 +24,13 @@ export class BasicAuthenticationService {
     } );
 
     return this.httpClient.get<AuthenticationBean>(
-      'http://localhost:8080/basicauth',
+      `${API_BASE_URL}${API_BASIC_AUTH_URI}`,
       { headers : header }).pipe(   // "pipe" is executed only in case of sucessful response
         map(
           data => {
-            sessionStorage.setItem('authenticatedUser', username);
+            sessionStorage.setItem(AUTHENTICATED_USR, username);
             // setting an authentication token in session storage
-            sessionStorage.setItem('authToken', basicAuthString);
+            sessionStorage.setItem(TOKEN, basicAuthString);
             return data;
             // NB here we are still working on the DEFINITION of the observable
             // this code is executed only when someone subscribes to the observable we send back!
@@ -42,12 +46,12 @@ export class BasicAuthenticationService {
   }
 
   getAuthenticatedUser() : string {
-    return sessionStorage.getItem('authenticatedUser');
+    return sessionStorage.getItem(AUTHENTICATED_USR);
   }
 
   getAuthenticatedToken() : string {
     if (this.getAuthenticatedUser())
-      return sessionStorage.getItem('authToken');
+      return sessionStorage.getItem(TOKEN);
     else
       return null;
   }
@@ -57,8 +61,8 @@ export class BasicAuthenticationService {
   }
 
   logout() {
-    sessionStorage.removeItem('authenticatedUser');
-    sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem(AUTHENTICATED_USR);
+    sessionStorage.removeItem(TOKEN);
 
   }
 

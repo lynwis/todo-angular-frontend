@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { API_BASE_URL } from 'src/app/app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class WelcomeDataService {
   ) { }
 
   executeHelloWorldBeanService() {
-    return this.httpClient.get<HelloWorldBean>('http://localhost:8080/hello-world-bean');
+    return this.httpClient.get<HelloWorldBean>(`${API_BASE_URL}/hello-world-bean`);
   }
 
   executePersonalizedHelloWorldBeanService(userName: string) {
@@ -26,7 +27,7 @@ export class WelcomeDataService {
     // return this.httpClient.get<HelloWorldBean>(`http://localhost:8080/hello-world/path-variable/${userName}`,
     //   {headers : header});
 
-    return this.httpClient.get<HelloWorldBean>(`http://localhost:8080/hello-world/path-variable/${userName}`);
+    return this.httpClient.get<HelloWorldBean>(`${API_BASE_URL}/hello-world/path-variable/${userName}`);
   }
 
   // createBasicAuthenticationHttpHeader(): string {
