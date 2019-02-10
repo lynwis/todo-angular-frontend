@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HardCodedAuthenticationService } from '../service/hard-coded-authentication.service';
 import { BasicAuthenticationService } from '../service/basic-authentication.service';
+import { JwtAuthenticationService } from '../service/jwt-authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   // in Typescript, constructor arguments are visible in the whole class, much like member variables
   constructor(private router: Router,
     private hardCodedAuthService: HardCodedAuthenticationService,
-    private basicAuthService: BasicAuthenticationService) {
+    private basicAuthService: BasicAuthenticationService,
+    private jwtAuthService: JwtAuthenticationService) {
     this.username = '';
     this.password = '';
     this.errorMessage = "Invalid credentials";
@@ -54,7 +56,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Baic authentication login
+   * Basic authentication login
    */
   handleBasicAuthLogin() {
     // i'm placing the username in this local variable because otherwise
@@ -81,6 +83,29 @@ export class LoginComponent implements OnInit {
     this.username = '';
     this.password = '';
 
+  }
+
+  /**
+   * JWT based login
+   */
+  handleJwtLogin() {
+    let user = this.username;
+ 
+    this.jwtAuthService.authenticate(this.username, this.password)
+      .subscribe(
+        response => {   // success
+          console.log(response);
+          this.router.navigate(['welcome', user]);
+          this.invalidLogin = false;
+        },
+        error => {    // error scenario
+          console.log(error);
+          this.invalidLogin = true;
+        }
+      )
+
+    this.username = '';
+    this.password = '';
   }
 
 }
